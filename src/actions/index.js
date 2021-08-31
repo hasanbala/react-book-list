@@ -26,16 +26,10 @@ const selectBook = (book) => {
   };
 };
 
-const unselectBook = (book) => {
+const unselectBook = () => {
   return {
     type: "UNSELECT_BOOK",
   };
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-  addBook,
-  deleteBook,
-  selectBook,
-  unselectBook,
-};
+export { addBook, deleteBook, selectBook, unselectBook };

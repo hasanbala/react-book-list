@@ -1,41 +1,29 @@
 import { combineReducers } from "redux";
 import books from "./books.json";
 
-const bookList = (oldBookList = books, action) => {
-  switch (action.type) {
-    case "ADD_BOOK":
-      return [...oldBookList, action.payload];
-
-    case "DELETE_BOOK":
-      return {
-        // eslint-disable-next-line array-callback-return
-        ...oldBookList.filter((item) => {
-          // eslint-disable-next-line no-unused-expressions
-          item.isbn !== action.payload.isbn;
-        }),
-      };
-
-    default:
-      return oldBookList;
+const bookListReducer = (oldBookList = books, action) => {
+  if (action.type === "ADD_BOOK") {
+    return [...oldBookList, action.payload];
+  } else if (action.type === "DELETE_BOOK") {
+    return oldBookList.filter(
+      (oldBook) => oldBook.title !== action.payload.title
+    );
   }
+  return oldBookList;
 };
 
-const selectedBook = (oldSelectedBook = {}, action) => {
-  switch (action.type) {
-    case "SELECT_BOOK":
-      return action.payload;
-
-    case "UNSELECT_BOOK":
-      return {};
-
-    default:
-      return oldSelectedBook;
+const selectedBookReducer = (oldSelectedBook = {}, action) => {
+  if (action.type === "SELECT_BOOK") {
+    return action.payload;
+  } else if (action.type === "UNSELECT_BOOK") {
+    return {};
+  } else if (action.type === "DELETE_BOOK") {
+    return oldSelectedBook.isbn === action.payload.isbn ? {} : oldSelectedBook;
   }
+  return oldSelectedBook;
 };
 
-const reducers = combineReducers({
-  bookList,
-  selectedBook,
+export default combineReducers({
+  bookList: bookListReducer,
+  selectedBook: selectedBookReducer,
 });
-
-export default reducers;

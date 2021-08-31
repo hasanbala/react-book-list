@@ -1,9 +1,12 @@
-import BookList from "./bookList/BookList";
+import BookList from "./bookList/bookList";
+import BookDetail from "./bookDetails/bookDetail";
+import "./app.css";
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="app-container">
       <BookList />
+      <BookDetail />
     </div>
   );
 };

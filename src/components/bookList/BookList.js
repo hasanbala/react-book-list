@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import BookItem from "./BookItem";
+import BookItem from "./bookItem";
+import "./bookList.css";
 
 class Booklist extends Component {
   render() {
     const { bookList } = this.props;
     return (
-      <div>
+      <div className="book-list-container ui cards">
         {bookList.map((book) => (
-          <BookItem key={book} book={book} />
+          <BookItem key={book.isbn} book={book} />
         ))}
       </div>
     );
@@ -16,8 +17,7 @@ class Booklist extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
-  return { booklist: state.booklist };
+  return { bookList: state.bookList };
 };
 
 export default connect(mapStateToProps)(Booklist);
